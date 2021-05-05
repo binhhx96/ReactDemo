@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import AuthServices from "../../Services/Authenticate";
+import history from "../../Utils/history";
 
 class Login extends Component {
     constructor() {
@@ -30,8 +31,10 @@ class Login extends Component {
         e.preventDefault();
 
         const {email, password, rememberMe} = this.state;
-        return AuthServices.login(email, password).then((response) => {
-           console.log(response);
+        return AuthServices.login(email, password, rememberMe).then((response) => {
+           history.push('/home');
+        }).catch((error) => {
+            console.log(error);
         });
     }
 
